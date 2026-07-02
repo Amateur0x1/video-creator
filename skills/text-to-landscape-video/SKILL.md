@@ -19,6 +19,20 @@ triggers:
 
 将文章、笔记、个人叙事转为 **1920×1080 横屏 MP4 动画**，每帧为左右分区布局，配 GSAP 逐拍动画，无配音静默版。
 
+## 项目结构
+
+```
+video-creator/
+├── videos/                       ← 视频项目源码（入 git）
+│   ├── odyssey-my-era/           ← 案例：奥德赛时期叙事（10 帧）
+│   ├── xhs-plugin-intro/        ← 案例：插件介绍视频（10 帧）
+│   └── xhs-overlay/             ← 案例：透明字幕叠加层
+├── output/
+│   └── videos/                   ← 最终交付视频（不入 git）
+└── skills/text-to-landscape-video/
+    └── SKILL.md
+```
+
 ## HyperFrames 是什么
 
 **HyperFrames** 是一个把 HTML/CSS/GSAP 动画渲染成 MP4 的视频制作框架。原理：
@@ -26,11 +40,6 @@ triggers:
 ```
 纯文本 → 每帧 HTML 动画文件 → index.html 组装时间线 → npx hyperframes render → MP4
 ```
-
-- **每一帧 = 一个 HTML 文件**，包含布局 CSS + GSAP timeline
-- **背景必须是独立 clip div**，不能直接设在 `#root` 上
-- **每个 clip 需要唯一 `data-track-index`**，同帧内不能重复
-- **GSAP timeline 必须注册**到 `window.__timelines['composition-id']`
 
 ## 工作流
 
@@ -41,15 +50,25 @@ triggers:
 | 3 | 规划 STORYBOARD | `STORYBOARD.md`（每帧叙事） |
 | 4 | 逐帧写 HTML 动画 | `compositions/frames/0N-*.html` |
 | 5 | 组装 + 注入转场 + lint | `index.html` |
-| 6 | 渲染 | `renders/*.mp4` |
+| 6 | 渲染 | `renders/*.mp4`，最终拷贝到 `output/videos/` |
 
-## 如何使用
+## 每个视频项目的结构
 
-直接告诉 Agent：
-
-> "把这篇文章做成横屏视频"
-> "用 HyperFrames 把文章转为 1920x1080 视频"
-> "帮我做一个产品介绍视频"
+```
+videos/<project-name>/
+├── hyperframes.json         ← HyperFrames 配置
+├── meta.json                ← 项目元数据
+├── package.json             ← npm 依赖
+├── frame.md                 ← 设计系统（色彩/字体/动画规范）
+├── STORYBOARD.md            ← 分镜脚本（每帧叙事详细描述）
+├── index.html               ← 主时间线（组装所有帧）
+├── compositions/frames/     ← 每帧的 HTML 动画文件
+│   ├── 01-hook.html
+│   ├── 02-xxx.html
+│   └── ...
+├── public/                  ← 静态资源（背景图等）
+└── renders/                 ← 渲染中间产物（不入 git）
+```
 
 ## 设计预设：editorial-forest
 
@@ -60,9 +79,9 @@ triggers:
 
 ## 输出规范
 
-- **视频目录**：`videos/<project-name>/`
-- **renders/ 不入 git**：MP4 文件太大，建议只 commit 源文件
-- **每帧独立**：`compositions/frames/0N-*.html`
+- 渲染过程中 MP4 先生成到 `videos/<project>/renders/`
+- 最终交付的视频拷贝到 `output/videos/` 目录
+- `output/videos/` 是给用户拿走的成品目录
 
 ## 关键规则
 
@@ -75,6 +94,7 @@ triggers:
 ## 命令
 
 ```bash
+cd videos/<project-name>
 npm run dev          # 启动预览服务（后台运行）
 npm run check        # lint + validate
 npm run render       # 渲染为 MP4
@@ -87,19 +107,3 @@ npm run render       # 渲染为 MP4
 - 持续感：subtle jitter（sine-wave-loop 低振幅）
 - 运动数量：2–4 种 move per 帧
 - 无限循环：全部禁止
-
-## 参考实现
-
-```
-videos/odyssey-my-era/   ← 完整案例（10 帧，50 秒）
-├── STORYBOARD.md        ← 叙事规划
-├── frame.md             ← 设计系统
-├── compositions/frames/ ← 10 个横版帧 HTML
-├── index.html           ← 组装后时间线
-└── renders/             ← 输出 MP4
-
-videos/xhs-plugin-intro/ ← 产品介绍视频（10 帧）
-├── STORYBOARD.md        ← 产品叙事规划
-├── compositions/frames/ ← 10 个帧 HTML
-└── renders/             ← 输出 MP4
-```

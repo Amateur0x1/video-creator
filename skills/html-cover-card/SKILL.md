@@ -1,8 +1,8 @@
 ---
 name: html-cover-card
 description: |
-  视频封面制作生成器 — 生成 1055×1491 竖屏封面图，包含插图、标题、标签、作者信息，
-  一键导出高清 PNG。适合 B 站/YouTube/小红书视频封面、播客封面、课程封面等。
+  视频封面制作 — 生成 1055×1491 竖屏封面图，包含插图、标题、标签、作者信息，
+  一键导出高清 PNG 到 output/covers/ 目录。适合视频封面、播客封面、课程封面等。
   当用户要求制作视频封面、频道封面图、课程封面、播客封面、竖版海报时使用此 skill。
 triggers:
   - "视频封面"
@@ -20,24 +20,27 @@ triggers:
 
 生成 **1055×1491** 竖屏封面图，包含插图、标题、标签、作者信息，一键导出高清 PNG。
 
-## 资源目录
+## 项目结构
 
 ```
-skills/html-cover-card/
-├── SKILL.md
-├── gen-images-b64.py             ← 图片 base64 生成脚本
-├── assets/
-│   ├── fonts/lxgw-wenkai-v1.522/ ← 霞鹜文楷字体
-│   ├── bg.png                    ← 封面背景图（1055×1491）
-│   ├── piggy_transparent.png     ← 封面插图示例（透明 PNG，900×900）
-│   └── images-b64.js             ← 图片 base64 缓存
-└── templates/
-    └── cover.html                ← 封面模板
+video-creator/
+├── output/
+│   └── covers/                   ← 导出的封面 PNG 放这里
+├── skills/html-cover-card/
+│   ├── SKILL.md
+│   ├── gen-images-b64.py         ← 图片 base64 生成脚本
+│   ├── assets/
+│   │   ├── fonts/lxgw-wenkai-v1.522/ ← 霞鹜文楷字体
+│   │   ├── bg.png                ← 封面背景图（1055×1491）
+│   │   ├── piggy_transparent.png ← 封面插图示例（透明 PNG，900×900）
+│   │   └── images-b64.js         ← 图片 base64 缓存
+│   └── templates/
+│       └── cover.html            ← 封面模板
 ```
 
 ## 使用方式
 
-1. **复制模板**：将 `templates/cover.html` 复制为 `output/my-cover.html`
+1. **复制模板**：将 `skills/html-cover-card/templates/cover.html` 复制到工作位置
 2. **修改内容**：
    - 替换 `<img class="cover-illustration" src="...">` 的图片路径
    - 修改 `.cover-tag` 标签文字
@@ -45,7 +48,7 @@ skills/html-cover-card/
    - 修改 `.p-subtitle` 副标题/导语
    - 修改 `.cover-author` 作者和年份
 3. **打开预览**：用浏览器直接打开 HTML 即可预览
-4. **导出 PNG**：点击右上角下载按钮
+4. **导出 PNG**：点击右上角下载按钮，将 PNG 保存到 `output/covers/`
 
 ## 关键参数
 
@@ -75,3 +78,8 @@ python3 skills/html-cover-card/gen-images-b64.py
 | 副标题 | `.p-subtitle` | 一句话导语 |
 | 分割线 | `.cover-divider` | 渐变水平线 |
 | 作者行 | `.cover-author` | 作者名 · 年份 |
+
+## 输出规范
+
+- 导出的封面 PNG 统一放到 `output/covers/` 目录
+- 文件名建议：`<视频项目名>-cover.png`，如 `xhs-plugin-intro-cover.png`
