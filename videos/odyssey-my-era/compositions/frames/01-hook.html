@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root {
+          position: absolute; inset: 0;
+          width: 1920px; height: 1080px;
+          overflow: hidden;
+          container-type: size;
+        }
+        .topbar {
+          position: absolute; top: 28px; left: 96px; right: 96px;
+          display: flex; justify-content: space-between; align-items: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #8a7a6a; opacity: 0;
+        }
+        /* 左侧：大标题 */
+        .left-hero {
+          position: absolute; left: 96px; top: 140px; width: 760px;
+          opacity: 0;
+        }
+        .left-eyebrow {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 20px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #e85c7a; margin-bottom: 24px;
+        }
+        .left-headline {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 96px; font-weight: 500; color: #3a2a1a;
+          line-height: 1.05; letter-spacing: -0.02em;
+        }
+        .left-sub {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 32px; font-weight: 400; color: #8a7a6a;
+          margin-top: 24px; line-height: 1.5;
+        }
+        /* 右侧：五站序列 */
+        .right-stations {
+          position: absolute; right: 96px; top: 130px; width: 860px;
+        }
+        .station-row {
+          display: flex; align-items: center; gap: 18px;
+          margin-bottom: 24px; opacity: 0;
+        }
+        .st-num {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 18px; font-weight: 500; letter-spacing: 0.14em;
+          color: #e85c7a; width: 36px; text-align: right; flex-shrink: 0;
+        }
+        .st-name {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 68px; font-weight: 500; color: #3a2a1a;
+          line-height: 1.0; letter-spacing: -0.01em; flex: 1;
+        }
+        .st-mark {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 42px; font-weight: 500; color: #e85c7a;
+          opacity: 0; flex-shrink: 0; width: 50px;
+        }
+        /* 竖向分隔线 */
+        .divider-v {
+          position: absolute; left: 960px; top: 120px;
+          width: 2px; height: 0; background: #e0d4c8;
+        }
+      </style>
+
+      <div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080">
+        <!-- bg.png 底纹背景 -->
+        <div id="bg-01" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <!-- 轻微遮罩 -->
+        <div id="mask-01" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(252,246,238,0.55);"></div>
+
+        <div class="clip topbar" id="topbar-01" data-start="0" data-duration="5" data-track-index="2">
+          <span>DREAMER PIGGY · 我的奥德赛时期</span>
+          <span>01 / 10</span>
+        </div>
+
+        <!-- 左侧标题 -->
+        <div class="clip left-hero" id="left-01" data-start="0" data-duration="5" data-track-index="3">
+          <div class="left-eyebrow">MY ODYSSEY ERA</div>
+          <div class="left-headline">五次<br>转向</div>
+          <div class="left-sub">每次都以为是终点<br>每次都不是</div>
+        </div>
+
+        <!-- 竖向分隔线 -->
+        <div class="clip divider-v" id="div-01" data-start="0" data-duration="5" data-track-index="4"></div>
+
+        <!-- 右侧五站 -->
+        <div class="clip right-stations" id="right-01" data-start="0" data-duration="5" data-track-index="5"
+             style="position:absolute;right:96px;top:120px;width:860px;">
+          <div class="station-row" id="s1">
+            <div class="st-num">01</div>
+            <div class="st-name">哲学</div>
+            <div class="st-mark" id="m1">✕</div>
+          </div>
+          <div class="station-row" id="s2">
+            <div class="st-num">02</div>
+            <div class="st-name">经济学</div>
+            <div class="st-mark" id="m2">✕</div>
+          </div>
+          <div class="station-row" id="s3">
+            <div class="st-num">03</div>
+            <div class="st-name">转码</div>
+            <div class="st-mark" id="m3">✕</div>
+          </div>
+          <div class="station-row" id="s4">
+            <div class="st-num">04</div>
+            <div class="st-name">上岸大厂</div>
+            <div class="st-mark" id="m4">✕</div>
+          </div>
+          <div class="station-row" id="s5">
+            <div class="st-num">05</div>
+            <div class="st-name">独立开发</div>
+            <div class="st-mark" id="m5" style="font-size:52px;">?</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        // topbar
+        tl.fromTo('#topbar-01', { opacity:0, y:-10 }, { opacity:1, y:0, duration:0.45, ease:'power3.out' }, 0.1);
+
+        // 竖线从上向下绘出
+        tl.fromTo('#div-01', { height:0 }, { height:840, duration:0.6, ease:'power2.inOut' }, 0.3);
+
+        // 左侧标题滑入
+        tl.fromTo('#left-01', { opacity:0, x:-30 }, { opacity:1, x:0, duration:0.55, ease:'power3.out' }, 0.5);
+
+        // 右侧五站依次入场
+        ['#s1','#s2','#s3','#s4'].forEach((id, i) => {
+          tl.fromTo(id, { opacity:0, x:24 }, { opacity:1, x:0, duration:0.35, ease:'power3.out' }, 0.8 + i * 0.32);
+          const mk = id.replace('s','m');
+          tl.fromTo(mk, { opacity:0, scale:0.4 }, { opacity:1, scale:1, duration:0.22, ease:'power3.out' }, 1.05 + i * 0.32);
+        });
+
+        // 最后一站：问号 spring-pop
+        tl.fromTo('#s5', { opacity:0, x:24 }, { opacity:1, x:0, duration:0.35, ease:'power3.out' }, 2.1);
+        tl.fromTo('#m5', { opacity:0, scale:0.3 }, { opacity:1, scale:1, duration:0.38, ease:'power3.out' }, 2.38);
+
+        // hold jitter on ?
+        tl.to('#m5', { y:-4, duration:0.22, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.1);
+
+        window.__timelines['01-hook'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

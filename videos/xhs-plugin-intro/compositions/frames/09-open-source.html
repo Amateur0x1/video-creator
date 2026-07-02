@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root { position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size; }
+        .topbar {
+          position:absolute;top:32px;left:96px;right:96px;
+          display:flex;justify-content:space-between;align-items:center;
+          font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;
+          letter-spacing:0.16em;text-transform:uppercase;color:#8a7a6a;opacity:0;
+        }
+        .divider-v {
+          position:absolute;left:900px;top:130px;
+          width:2px;height:0;background:#e0d4c8;
+        }
+        /* 左：开源标志 */
+        .left-oss {
+          position:absolute;left:96px;top:160px;width:700px;
+          text-align:center;opacity:0;
+        }
+        .oss-icon { font-size:120px;display:block;margin-bottom:20px; }
+        .oss-label {
+          font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;
+          letter-spacing:0.18em;text-transform:uppercase;color:#8a7a6a;margin-bottom:16px;
+        }
+        .oss-title {
+          font-family:'Noto Serif SC',serif;font-size:76px;font-weight:500;
+          color:#3a2a1a;line-height:1.0;letter-spacing:-0.02em;
+        }
+        .github-pill {
+          display:inline-block;
+          font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;
+          letter-spacing:0.12em;background:#3a2a1a;color:#f5ece0;
+          padding:12px 36px;border-radius:100px;margin-top:24px;opacity:0;
+        }
+        /* 右：平台 tile */
+        .right-platforms {
+          position:absolute;right:96px;top:150px;width:820px;
+        }
+        .plat-title {
+          font-family:'Noto Serif SC',serif;font-size:42px;font-weight:500;
+          color:#3a2a1a;margin-bottom:24px;opacity:0;
+        }
+        .plat-row {
+          display:flex;align-items:center;gap:20px;
+          margin-bottom:20px;opacity:0;
+        }
+        .plat-icon { font-size:48px;flex-shrink:0; }
+        .plat-name {
+          font-family:'Noto Serif SC',serif;font-size:52px;font-weight:500;
+          color:#3a2a1a;letter-spacing:-0.01em;flex:1;
+        }
+        .plat-status {
+          font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:500;
+          letter-spacing:0.12em;text-transform:uppercase;
+          padding:6px 16px;border-radius:100px;flex-shrink:0;
+        }
+        .status-live { background:#5a9c5a;color:#f0f8f0; }
+        .status-soon { background:#f5ece0;border:2px solid #e0d4c8;color:#8a7a6a; }
+      </style>
+
+      <div id="root" data-composition-id="09-open-source" data-width="1920" data-height="1080">
+        <div id="bg-09" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <div id="mask-09" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(252,246,238,0.55);"></div>
+
+        <div class="clip topbar" id="topbar-09" data-start="0" data-duration="5" data-track-index="2">
+          <span>OPEN SOURCE</span><span>09 / 10</span>
+        </div>
+
+        <div class="clip divider-v" id="div-09" data-start="0" data-duration="5" data-track-index="3"></div>
+
+        <!-- 左：开源 -->
+        <div class="clip left-oss" id="loss-09" data-start="0" data-duration="5" data-track-index="4">
+          <span class="oss-icon">🔓</span>
+          <div class="oss-label">OPEN SOURCE</div>
+          <div class="oss-title">完全开源</div>
+          <div class="github-pill" id="gpill-09">⭐ GitHub Star 欢迎</div>
+        </div>
+
+        <!-- 右：平台 -->
+        <div class="clip right-platforms" id="rplat-09" data-start="0" data-duration="5" data-track-index="5"
+             style="position:absolute;right:96px;top:150px;width:820px;">
+          <div class="plat-title" id="pt-09">支持平台</div>
+          <div class="plat-row" id="pr1">
+            <div class="plat-icon">📕</div>
+            <div class="plat-name">小红书</div>
+            <div class="plat-status status-live">LIVE</div>
+          </div>
+          <div class="plat-row" id="pr2">
+            <div class="plat-icon">📺</div>
+            <div class="plat-name">B 站</div>
+            <div class="plat-status status-soon">COMING SOON</div>
+          </div>
+          <div class="plat-row" id="pr3">
+            <div class="plat-icon">🎵</div>
+            <div class="plat-name">抖音</div>
+            <div class="plat-status status-soon">COMING SOON</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo('#topbar-09', { opacity:0, y:-8 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 0.1);
+        tl.fromTo('#div-09', { height:0 }, { height:800, duration:0.48, ease:'power2.inOut' }, 0.3);
+        tl.fromTo('#loss-09', { opacity:0, x:-30 }, { opacity:1, x:0, duration:0.5, ease:'power3.out' }, 0.65);
+        tl.fromTo('#gpill-09', { opacity:0, scale:0.3 }, { opacity:1, scale:1, duration:0.38, ease:'power3.out' }, 1.4);
+        tl.fromTo('#pt-09', { opacity:0, y:12 }, { opacity:1, y:0, duration:0.35, ease:'power3.out' }, 1.6);
+
+        ['#pr1','#pr2','#pr3'].forEach((id, i) => {
+          tl.fromTo(id, { opacity:0, x:36 }, { opacity:1, x:0, duration:0.38, ease:'power3.out' }, 1.95 + i * 0.35);
+        });
+
+        tl.to('#gpill-09', { y:-4, duration:0.22, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.0);
+
+        window.__timelines['09-open-source'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root {
+          position: absolute; inset: 0;
+          width: 1920px; height: 1080px;
+          overflow: hidden; container-type: size;
+        }
+        .topbar {
+          position: absolute; top: 28px; left: 96px; right: 96px;
+          display: flex; justify-content: space-between; align-items: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #8a7a6a; opacity: 0;
+        }
+        /* 左右分区，comparison-split 横版 */
+        .left-panel {
+          position: absolute; left: 96px; top: 140px; width: 780px;
+          text-align: center; opacity: 0;
+        }
+        .right-panel {
+          position: absolute; right: 96px; top: 140px; width: 780px;
+          text-align: center; opacity: 0;
+        }
+        .panel-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 20px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          margin-bottom: 20px;
+        }
+        .panel-title {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 112px; font-weight: 500;
+          line-height: 1.0; letter-spacing: -0.02em;
+        }
+        .panel-sub {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 38px; font-weight: 400;
+          margin-top: 16px;
+        }
+        /* 竖向分隔线 */
+        .divider-v {
+          position: absolute; left: 957px; top: 130px;
+          width: 2px; height: 0; background: #e85c7a;
+        }
+        .caption {
+          position: absolute; left: 96px; right: 96px; bottom: 120px;
+          text-align: center;
+          font-family: 'Noto Serif SC', serif;
+          font-size: 32px; font-weight: 400; color: #8a7a6a;
+          letter-spacing: 0.06em; opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="03-origin" data-width="1920" data-height="1080">
+        <!-- bg.png 底纹背景 -->
+        <div id="bg-03" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <div id="mask-03" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(252,246,238,0.55);"></div>
+
+        <div class="clip topbar" id="topbar-03" data-start="0" data-duration="5" data-track-index="2">
+          <span>ORIGIN</span><span>03 / 10</span>
+        </div>
+
+        <!-- 左：哲学（爱好） -->
+        <div class="clip left-panel" id="left-03" data-start="0" data-duration="5" data-track-index="3">
+          <div class="panel-label" style="color:#e85c7a;">LOVE</div>
+          <div class="panel-title" style="color:#3a2a1a;">哲学</div>
+          <div class="panel-sub" style="color:#8a7a6a;">（爱好）</div>
+        </div>
+
+        <!-- 竖向分隔线 -->
+        <div class="clip divider-v" id="div-03" data-start="0" data-duration="5" data-track-index="4"></div>
+
+        <!-- 右：经济学（谋生） -->
+        <div class="clip right-panel" id="right-03" data-start="0" data-duration="5" data-track-index="5">
+          <div class="panel-label" style="color:#8a7a6a;">CAREER</div>
+          <div class="panel-title" style="color:#8a7a6a;">经济学</div>
+          <div class="panel-sub" style="color:#8a7a6a;">（谋生）</div>
+        </div>
+
+        <div class="clip caption" id="caption-03" data-start="0" data-duration="5" data-track-index="6">
+          2019 年，不敢把爱好当饭吃 — 绝大部分人都是这样
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo('#topbar-03', { opacity:0, y:-8 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 0.1);
+
+        // comparison-split：两侧从各自方向 3D 滑入
+        tl.fromTo('#left-03',
+          { opacity:0, x:-48, rotationY:-10 },
+          { opacity:1, x:0, rotationY:0, duration:0.55, ease:'power3.out', transformOrigin:'right center' },
+          0.7
+        );
+
+        // 竖线从上绘下
+        tl.fromTo('#div-03', { height:0 }, { height:780, duration:0.45, ease:'power2.out' }, 1.35);
+
+        // 右侧
+        tl.fromTo('#right-03',
+          { opacity:0, x:48, rotationY:10 },
+          { opacity:1, x:0, rotationY:0, duration:0.55, ease:'power3.out', transformOrigin:'left center' },
+          1.45
+        );
+
+        // caption
+        tl.fromTo('#caption-03', { opacity:0, y:12 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 2.5);
+
+        // subtle jitter on divider
+        tl.to('#div-03', { x:2, duration:0.2, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.2);
+
+        window.__timelines['03-origin'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

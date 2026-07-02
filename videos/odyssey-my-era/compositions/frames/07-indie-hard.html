@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root {
+          position: absolute; inset: 0;
+          width: 1920px; height: 1080px;
+          overflow: hidden; container-type: size;
+        }
+        .topbar {
+          position: absolute; top: 28px; left: 96px; right: 96px;
+          display: flex; justify-content: space-between; align-items: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #8a7a6a; opacity: 0;
+        }
+        /* 左：大标题 */
+        .left-title {
+          position: absolute; left: 96px; top: 150px; width: 740px;
+          opacity: 0;
+        }
+        .title-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 20px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #8a7a6a; margin-bottom: 20px;
+        }
+        .hw { display: inline-block; opacity: 0; }
+        .hw-base {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 96px; font-weight: 500; color: #3a2a1a;
+          line-height: 1.1; letter-spacing: -0.02em;
+        }
+        .hw-coral {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 108px; font-weight: 500; color: #e85c7a;
+          line-height: 1.1; letter-spacing: -0.02em;
+        }
+        /* 右：4 tiles 横版 2×2 */
+        .tiles-grid {
+          position: absolute; right: 96px; top: 150px;
+          width: 860px;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        .tile {
+          border-radius: 8px; border: 2.5px solid transparent;
+          padding: 30px 24px; opacity: 0; position: relative;
+        }
+        .tile-label {
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 18px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+        .tile-title {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 56px; font-weight: 500; line-height: 1.0;
+        }
+        .tile-exclaim {
+          position: absolute; top: 16px; right: 20px;
+          font-family: 'JetBrains Mono', monospace; font-size: 30px; font-weight: 500; opacity: 0.7;
+        }
+        .t-cream { background:#f5ede0; border-color:#e0d4c8; }
+        .t-cream .tile-label { color:#8a7a6a; }
+        .t-cream .tile-title { color:#3a2a1a; }
+        .t-cream .tile-exclaim { color:#8a7a6a; }
+        .t-warm { background:#3a2a1a; border-color:#3a2a1a; }
+        .t-warm .tile-label { color:#e85c7a; }
+        .t-warm .tile-title { color:#fcf6ee; }
+        .t-warm .tile-exclaim { color:#e85c7a; }
+        .t-coral { background:#e85c7a; border-color:#d44d6a; }
+        .t-coral .tile-label { color:#fcf6ee; }
+        .t-coral .tile-title { color:#fcf6ee; }
+        .t-coral .tile-exclaim { color:#fcf6ee; }
+        .t-mid { background:#6b4c3b; border-color:#6b4c3b; }
+        .t-mid .tile-label { color:#e85c7a; }
+        .t-mid .tile-title { color:#fcf6ee; }
+        .t-mid .tile-exclaim { color:#e85c7a; }
+        .divider-v {
+          position: absolute; left: 960px; top: 120px;
+          width: 2px; height: 0; background: #e0d4c8;
+        }
+      </style>
+
+      <div id="root" data-composition-id="07-indie-hard" data-width="1920" data-height="1080">
+        <!-- bg.png 底纹背景 -->
+        <div id="bg-07" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <div id="mask-07" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(252,246,238,0.55);"></div>
+
+        <div class="clip topbar" id="topbar-07" data-start="0" data-duration="5" data-track-index="2">
+          <span>INDIE DEV</span><span>07 / 10</span>
+        </div>
+
+        <div class="clip divider-v" id="div-07" data-start="0" data-duration="5" data-track-index="3"></div>
+
+        <!-- 左侧标题 -->
+        <div class="clip left-title" id="ltitle-07" data-start="0" data-duration="5" data-track-index="4">
+          <div class="title-label">INSIGHT 01</div>
+          <div>
+            <span class="hw hw-base" id="h1">独立</span>
+            <span class="hw hw-base" id="h2">开发</span>
+            <span class="hw hw-base" id="h3">是</span>
+          </div>
+          <div>
+            <span class="hw hw-coral" id="h4">真的</span>
+            <span class="hw hw-coral" id="h5">难</span>
+          </div>
+        </div>
+
+        <!-- 右侧 tiles -->
+        <div class="clip tiles-grid" id="tiles-07" data-start="0" data-duration="5" data-track-index="5">
+          <div class="tile t-cream" id="t7a"><div class="tile-label">设计</div><div class="tile-title">Design</div><div class="tile-exclaim">!</div></div>
+          <div class="tile t-warm" id="t7b"><div class="tile-label">代码</div><div class="tile-title">Code</div><div class="tile-exclaim">!</div></div>
+          <div class="tile t-coral" id="t7c"><div class="tile-label">营销</div><div class="tile-title">Marketing</div><div class="tile-exclaim">!</div></div>
+          <div class="tile t-mid" id="t7d"><div class="tile-label">增长</div><div class="tile-title">Growth</div><div class="tile-exclaim">!</div></div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo('#topbar-07', { opacity:0, y:-8 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 0.1);
+        tl.fromTo('#div-07', { height:0 }, { height:820, duration:0.45, ease:'power2.inOut' }, 0.3);
+
+        // 左侧标题：per-word reveal
+        tl.fromTo('#ltitle-07', { opacity:0 }, { opacity:1, duration:0.01 }, 0.65);
+        ['#h1','#h2','#h3'].forEach((id, i) => {
+          tl.fromTo(id, { opacity:0, y:20 }, { opacity:1, y:0, duration:0.3, ease:'power3.out' }, 0.7 + i * 0.18);
+        });
+        // "真的难" spring-pop
+        tl.fromTo('#h4', { opacity:0, scale:0.35 }, { opacity:1, scale:1, duration:0.36, ease:'power3.out' }, 1.25);
+        tl.fromTo('#h5', { opacity:0, scale:0.35 }, { opacity:1, scale:1, duration:0.36, ease:'power3.out' }, 1.52);
+
+        // 右侧 tiles 级联
+        ['#t7a','#t7b','#t7c','#t7d'].forEach((id, i) => {
+          tl.fromTo(id,
+            { opacity:0, y:28, scale:0.9 },
+            { opacity:1, y:0, scale:1, duration:0.38, ease:'power3.out' },
+            2.0 + i * 0.32
+          );
+        });
+
+        // jitter on "真的难"
+        tl.to('#h4', { y:-4, duration:0.2, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.2);
+        tl.to('#h5', { y:-4, duration:0.2, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.2);
+
+        window.__timelines['07-indie-hard'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

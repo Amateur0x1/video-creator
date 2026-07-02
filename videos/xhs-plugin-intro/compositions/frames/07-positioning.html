@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root { position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;container-type:size; }
+        .topbar {
+          position:absolute;top:32px;left:96px;right:96px;
+          display:flex;justify-content:space-between;align-items:center;
+          font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;
+          letter-spacing:0.16em;text-transform:uppercase;color:#8a7a6a;opacity:0;
+        }
+        /* 左：批量采集工具（暗） */
+        .left-panel {
+          position:absolute;left:96px;top:150px;width:760px;
+          text-align:center;opacity:0;
+        }
+        /* 右：内容研究助手（亮） */
+        .right-panel {
+          position:absolute;right:96px;top:150px;width:760px;
+          text-align:center;opacity:0;
+        }
+        .p-label {
+          font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;
+          letter-spacing:0.16em;text-transform:uppercase;margin-bottom:16px;
+        }
+        .p-title {
+          font-family:'Noto Serif SC',serif;font-size:80px;font-weight:500;
+          line-height:1.0;letter-spacing:-0.02em;
+        }
+        .p-tags {
+          font-family:'Noto Serif SC',serif;font-size:32px;font-weight:400;
+          margin-top:16px;line-height:1.5;
+        }
+        .p-pill {
+          display:inline-block;
+          font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;
+          letter-spacing:0.12em;text-transform:uppercase;
+          padding:10px 32px;border-radius:100px;margin-top:20px;opacity:0;
+        }
+        /* 竖向分隔线 */
+        .divider-v {
+          position:absolute;left:958px;top:130px;
+          width:2px;height:0;background:#e85c7a;
+        }
+      </style>
+
+      <div id="root" data-composition-id="07-positioning" data-width="1920" data-height="1080">
+        <div id="bg-07" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <div id="mask-07" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(252,246,238,0.55);"></div>
+
+        <div class="clip topbar" id="topbar-07" data-start="0" data-duration="5" data-track-index="2">
+          <span>POSITIONING</span><span>07 / 10</span>
+        </div>
+
+        <!-- 左：批量采集（暗淡）— 从左滑入 -->
+        <div class="clip left-panel" id="lpanel-07" data-start="0" data-duration="5" data-track-index="3">
+          <div class="p-label" style="color:#c0b0a0;">TRADITIONAL</div>
+          <div class="p-title" style="color:#c0b0a0;">批量采集<br>工具</div>
+          <div class="p-tags" style="color:#c0b0a0;">主动拉取 · 有风控风险</div>
+        </div>
+
+        <!-- 粉色竖线 -->
+        <div class="clip divider-v" id="div-07" data-start="0" data-duration="5" data-track-index="4"></div>
+
+        <!-- 右：内容研究助手（高亮）— 从右滑入 -->
+        <div class="clip right-panel" id="rpanel-07" data-start="0" data-duration="5" data-track-index="5">
+          <div class="p-label" style="color:#3a2a1a;">THIS PLUGIN</div>
+          <div class="p-title" style="color:#3a2a1a;">内容研究<br>助手</div>
+          <div class="p-tags" style="color:#6a5a4a;">被动沉淀 · 更安全</div>
+          <div class="p-pill" id="pill-07" style="background:#e85c7a;color:#fff5f0;">有你筛选过的高质量样本</div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo('#topbar-07', { opacity:0, y:-8 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 0.1);
+        tl.fromTo('#lpanel-07',
+          { opacity:0, x:-48, rotationY:-10 },
+          { opacity:1, x:0, rotationY:0, duration:0.55, ease:'power3.out', transformOrigin:'right center' }, 0.7);
+        tl.fromTo('#div-07', { height:0 }, { height:800, duration:0.42, ease:'power2.out' }, 1.35);
+        tl.fromTo('#rpanel-07',
+          { opacity:0, x:48, rotationY:10 },
+          { opacity:1, x:0, rotationY:0, duration:0.55, ease:'power3.out', transformOrigin:'left center' }, 1.45);
+        tl.fromTo('#pill-07', { opacity:0, scale:0.3 }, { opacity:1, scale:1, duration:0.4, ease:'power3.out' }, 2.2);
+        tl.to('#pill-07', { y:-4, duration:0.22, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.0);
+
+        window.__timelines['07-positioning'] = tl;
+      </script>
+    </template>
+  </body>
+</html>
