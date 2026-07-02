@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500&family=JetBrains+Mono:wght@500&display=swap');
+        #root {
+          position: absolute; inset: 0;
+          width: 1920px; height: 1080px;
+          overflow: hidden; container-type: size;
+        }
+        .topbar {
+          position: absolute; top: 28px; left: 96px; right: 96px;
+          display: flex; justify-content: space-between; align-items: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+          color: #8a7a6a; opacity: 0;
+        }
+        /* 居中大引言 */
+        .quote-wrap {
+          position: absolute; left: 96px; right: 96px; top: 220px;
+          text-align: center;
+        }
+        .quote-word {
+          display: inline-block;
+          font-family: 'Noto Serif SC', serif;
+          font-size: 112px; font-weight: 500; color: #e85c7a;
+          line-height: 1.15; letter-spacing: -0.02em; opacity: 0;
+        }
+        .quote-word.dark { color: #3a2a1a; }
+        .quote-open {
+          font-family: 'Noto Serif SC', serif;
+          font-size: 120px; color: #e85c7a; opacity: 0;
+          line-height: 0.5; display: block; margin-bottom: -10px;
+        }
+        .note {
+          position: absolute; left: 96px; right: 96px; bottom: 120px;
+          text-align: center;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 22px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+          color: #8a7a6a; opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="04-belief" data-width="1920" data-height="1080">
+        <!-- bg.png 底纹背景（深色遮罩营造大引言氛围） -->
+        <div id="bg-04" class="clip" data-start="0" data-duration="5" data-track-index="0"
+             style="position:absolute;inset:0;background-image:url('public/bg.png');background-size:cover;background-position:center;"></div>
+        <div id="mask-04" class="clip" data-start="0" data-duration="5" data-track-index="1"
+             style="position:absolute;inset:0;background:rgba(58,42,26,0.72);"></div>
+
+        <div class="clip topbar" id="topbar-04" data-start="0" data-duration="5" data-track-index="2"
+             style="color:#c8bfb0;">
+          <span>BELIEF</span><span>04 / 10</span>
+        </div>
+
+        <div class="clip quote-wrap" id="quote-04" data-start="0" data-duration="5" data-track-index="3">
+          <span class="quote-open" id="qopen">"</span>
+          <span class="quote-word" id="qw1">如果</span>
+          <span class="quote-word" id="qw2">世界</span>
+          <span class="quote-word" id="qw3">是个</span>
+          <span class="quote-word" id="qw4">草台</span>
+          <span class="quote-word" id="qw5">班子</span>
+          <span class="quote-word dark" id="qw6" style="color:#fcf6ee;">呢？</span>
+        </div>
+
+        <div class="clip note" id="note-04" data-start="0" data-duration="5" data-track-index="4"
+             style="color:#c8bfb0;">
+          某个普通的夜晚 · 喘息时间里积累的力量 · 支撑着我
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        tl.fromTo('#topbar-04', { opacity:0, y:-8 }, { opacity:1, y:0, duration:0.4, ease:'power3.out' }, 0.1);
+        tl.fromTo('#qopen', { opacity:0 }, { opacity:0.35, duration:0.3, ease:'power2.out' }, 0.65);
+
+        // per-word staggered reveal
+        ['#qw1','#qw2','#qw3','#qw4','#qw5'].forEach((id, i) => {
+          tl.fromTo(id, { opacity:0, y:28 }, { opacity:1, y:0, duration:0.32, ease:'power3.out' }, 0.8 + i * 0.24);
+        });
+        // 最后词 spring-pop payoff
+        tl.fromTo('#qw6', { scale:0.4, opacity:0 }, { scale:1, opacity:1, duration:0.38, ease:'power3.out' }, 0.8 + 5 * 0.24);
+
+        tl.fromTo('#note-04', { opacity:0, y:14 }, { opacity:1, y:0, duration:0.42, ease:'power3.out' }, 3.0);
+
+        // subtle jitter on quote
+        tl.to('#quote-04', { x:3, duration:0.22, ease:'sine.inOut', yoyo:true, repeat:3 }, 4.2);
+
+        window.__timelines['04-belief'] = tl;
+      </script>
+    </template>
+  </body>
+</html>

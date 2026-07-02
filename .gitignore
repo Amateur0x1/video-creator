@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+*.pyc
+__pycache__/
+
+# 渲染输出的 MP4 太大，不入 git
+videos/*/renders/*.mp4
+videos/*/renders/*.webm
